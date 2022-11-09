@@ -1,4 +1,4 @@
-package com.example.parkingspot;
+package com.example.parkingspot.person;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

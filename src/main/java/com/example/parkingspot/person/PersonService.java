@@ -1,4 +1,4 @@
-package com.example.parkingspot;
+package com.example.parkingspot.person;
 
 import java.util.List;
 import java.util.Optional;

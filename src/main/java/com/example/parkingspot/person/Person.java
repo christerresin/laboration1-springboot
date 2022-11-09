@@ -1,4 +1,4 @@
-package com.example.parkingspot;
+package com.example.parkingspot.person;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
