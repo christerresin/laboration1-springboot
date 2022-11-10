@@ -92,4 +92,12 @@ public class Event {
     this.zone_id = zone_id;
   }
 
+  public Zone getZone() {
+    return zone;
+  }
+
+  public void setZone(Zone zone) {
+    this.zone = zone;
+  }
+
 }
