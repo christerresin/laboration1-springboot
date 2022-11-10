@@ -1,8 +1,10 @@
-package com.example.parkingspot.event;
+package com.example.parkingspot.zone;
 
 import java.util.List;
 
 import org.springframework.data.geo.Polygon;
+
+import com.example.parkingspot.event.Event;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

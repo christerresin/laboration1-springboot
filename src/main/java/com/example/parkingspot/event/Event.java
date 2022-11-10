@@ -3,6 +3,7 @@ package com.example.parkingspot.event;
 import java.sql.Date;
 
 import com.example.parkingspot.car.Car;
+import com.example.parkingspot.zone.Zone;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
