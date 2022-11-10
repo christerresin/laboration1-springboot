@@ -16,7 +16,7 @@ public class PersonService {
   }
 
   public Person getPersonById(Long personId) {
-    return personRepository.findById(personId).orElseThrow(() -> new RuntimeException("not found"));
+    return personRepository.findById(personId).orElseThrow(() -> new RuntimeException("Person not found"));
   }
 
   public List<Person> getAllPersons() {
