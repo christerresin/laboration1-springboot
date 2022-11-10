@@ -4,10 +4,14 @@ import java.sql.Date;
 
 import com.example.parkingspot.car.Car;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -18,8 +22,12 @@ public class Event {
   private Date start;
   private Date stop;
   private boolean active = true;
+  @OneToOne(cascade = CascadeType.DETACH)
+  @JoinColumn(name = "car", referencedColumnName = "id")
   private Car car;
+  @ManyToOne
   private Zone zone;
+
   @Transient
   private int car_id;
   @Transient
@@ -66,14 +74,6 @@ public class Event {
 
   public void setCar(Car car) {
     this.car = car;
-  }
-
-  public Zone getZone() {
-    return zone;
-  }
-
-  public void setZone(Zone zone) {
-    this.zone = zone;
   }
 
   public int getCar_id() {

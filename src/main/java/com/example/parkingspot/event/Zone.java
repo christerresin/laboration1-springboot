@@ -1,11 +1,15 @@
 package com.example.parkingspot.event;
 
+import java.util.List;
+
 import org.springframework.data.geo.Polygon;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Zone {
@@ -14,6 +18,8 @@ public class Zone {
   private Long id;
   private Polygon location;
   private String name;
+  @OneToMany(mappedBy = "id", cascade = CascadeType.DETACH)
+  private List<Event> events;
 
   public Zone() {
   }
