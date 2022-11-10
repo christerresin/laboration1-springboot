@@ -1,10 +1,15 @@
 package com.example.parkingspot.person;
 
+import java.util.Set;
+
+import com.example.parkingspot.car.Car;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Person {
@@ -13,6 +18,8 @@ public class Person {
   private long id;
   private String firstName;
   private String lastName;
+  @OneToMany(mappedBy = "id", cascade = CascadeType.DETACH)
+  private Set<Car> cars;
 
   public Person() {
 
