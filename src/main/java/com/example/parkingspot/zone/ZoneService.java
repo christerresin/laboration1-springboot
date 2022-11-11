@@ -11,6 +11,6 @@ public class ZoneService {
   }
 
   public void registerNewParkingZone(Zone zone) {
-
+    zoneRepository.save(zone);
   }
 }

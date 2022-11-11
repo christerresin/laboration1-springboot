@@ -7,6 +7,7 @@ import org.springframework.data.geo.Polygon;
 import com.example.parkingspot.event.Event;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +19,9 @@ public class Zone {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @Column(nullable = false)
   private Polygon location;
+  @Column(nullable = false)
   private String name;
   @OneToMany(mappedBy = "id", cascade = CascadeType.DETACH)
   private List<Event> events;

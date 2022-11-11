@@ -1,6 +1,7 @@
 package com.example.parkingspot.person;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,13 @@ public class PersonService {
   }
 
   public Person getPersonById(Long personId) {
-    return personRepository.findById(personId).orElseThrow(() -> new RuntimeException("Person not found"));
+    Optional<Person> personOptional = personRepository.findById(personId);
+    if (personOptional.isPresent()) {
+      return personOptional.get();
+    }
+    return null;
+    // return personRepository.findById(personId).orElseThrow(() -> new
+    // RuntimeException("Person not found"));
   }
 
   public List<Person> getAllPersons() {
