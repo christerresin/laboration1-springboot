@@ -42,8 +42,10 @@ public class CarController {
   // }
 
   @PostMapping
-  public void registerNewCar(@RequestBody Car car) {
-    carService.addNewCar(car);
+  public ResponseEntity<Car> registerNewCar(@RequestBody Car car) {
+    Car newCar = carService.addNewCar(car);
+    // TODO: add checking/optional if write was successfull or not
+    return new ResponseEntity<Car>(newCar, HttpStatus.OK);
   }
 
   @PutMapping("/{id}")

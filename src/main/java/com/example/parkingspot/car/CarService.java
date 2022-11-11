@@ -23,12 +23,12 @@ public class CarService {
 
   }
 
-  public void addNewCar(Car car) {
+  public Car addNewCar(Car car) {
     Person owner = personService.getPersonById(car.getPersonId());
     Car newCar = new Car();
     newCar.setRegistration(car.getRegistration());
     newCar.setPerson(owner);
-    carRepository.save(newCar);
+    return carRepository.save(newCar);
   }
 
   public List<Car> getCarsById(Long personId) {
