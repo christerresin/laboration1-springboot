@@ -1,6 +1,5 @@
 package com.example.parkingspot.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,16 +13,15 @@ import com.example.parkingspot.entity.Person;
 import com.example.parkingspot.service.PersonService;
 
 @RestController
-@RequestMapping("/api/person")
+@RequestMapping("/api")
 public class PersonController {
   private final PersonService personService;
 
-  @Autowired
   public PersonController(PersonService personService) {
     this.personService = personService;
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/persons/{id}")
   public ResponseEntity<Person> getPerson(@PathVariable(name = "id") Long personId) {
     Person foundPerson = personService.getPersonById(personId);
     if (foundPerson != null) {
@@ -32,7 +30,7 @@ public class PersonController {
     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
 
-  @PostMapping
+  @PostMapping("/persons")
   public void addNewPerson(@RequestBody Person person) {
     personService.addNewPerson(person);
   }

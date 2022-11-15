@@ -1,10 +1,7 @@
 package com.example.parkingspot.service;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.parkingspot.entity.Event;

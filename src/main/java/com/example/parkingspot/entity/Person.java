@@ -16,7 +16,7 @@ public class Person {
   private long id;
   private String firstName;
   private String lastName;
-  @OneToMany(mappedBy = "person", cascade = CascadeType.DETACH)
+  @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
   private Set<Car> cars;
 
   public Person() {

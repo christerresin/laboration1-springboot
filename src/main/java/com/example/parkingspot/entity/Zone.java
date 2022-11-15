@@ -2,8 +2,6 @@ package com.example.parkingspot.entity;
 
 import java.util.Set;
 
-import org.springframework.data.geo.Polygon;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,11 +15,9 @@ public class Zone {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Column(nullable = false)
   private String location;
-  @Column(nullable = false)
   private String name;
-  @OneToMany(mappedBy = "zone", cascade = CascadeType.DETACH)
+  @OneToMany(mappedBy = "zone", cascade = CascadeType.PERSIST)
   private Set<Event> events;
 
   public Zone() {
