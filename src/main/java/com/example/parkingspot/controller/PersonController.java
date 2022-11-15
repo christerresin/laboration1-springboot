@@ -1,5 +1,7 @@
 package com.example.parkingspot.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,11 @@ public class PersonController {
 
   public PersonController(PersonService personService) {
     this.personService = personService;
+  }
+
+  @GetMapping("/persons")
+  public List<Person> getAllPersons() {
+    return personService.getAllPersons();
   }
 
   @GetMapping("/persons/{id}")
