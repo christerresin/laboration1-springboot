@@ -1,10 +1,8 @@
-package com.example.parkingspot.zone;
+package com.example.parkingspot.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.geo.Polygon;
-
-import com.example.parkingspot.event.Event;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -20,11 +18,11 @@ public class Zone {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @Column(nullable = false)
-  private Polygon location;
+  private String location;
   @Column(nullable = false)
   private String name;
-  @OneToMany(mappedBy = "id", cascade = CascadeType.DETACH)
-  private List<Event> events;
+  @OneToMany(mappedBy = "zone", cascade = CascadeType.DETACH)
+  private Set<Event> events;
 
   public Zone() {
   }
@@ -37,14 +35,6 @@ public class Zone {
     this.id = id;
   }
 
-  public Polygon getLocation() {
-    return location;
-  }
-
-  public void setLocation(Polygon location) {
-    this.location = location;
-  }
-
   public String getName() {
     return name;
   }
@@ -53,12 +43,20 @@ public class Zone {
     this.name = name;
   }
 
-  public List<Event> getEvents() {
+  public Set<Event> getEvents() {
     return events;
   }
 
-  public void setEvents(List<Event> events) {
+  public void setEvents(Set<Event> events) {
     this.events = events;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
   }
 
 }

@@ -1,8 +1,6 @@
-package com.example.parkingspot.person;
+package com.example.parkingspot.entity;
 
 import java.util.Set;
-
-import com.example.parkingspot.car.Car;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -18,7 +16,7 @@ public class Person {
   private long id;
   private String firstName;
   private String lastName;
-  @OneToMany(mappedBy = "id", cascade = CascadeType.DETACH)
+  @OneToMany(mappedBy = "person", cascade = CascadeType.DETACH)
   private Set<Car> cars;
 
   public Person() {

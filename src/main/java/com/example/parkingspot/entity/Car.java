@@ -1,7 +1,6 @@
-package com.example.parkingspot.car;
+package com.example.parkingspot.entity;
 
-import com.example.parkingspot.person.Person;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,11 +13,14 @@ public class Car {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @Column(unique = true)
   private String registration;
   @Transient
   private Long personId;
   @ManyToOne
   private Person person;
+  @ManyToOne
+  private Event events;
 
   public Car() {
   }

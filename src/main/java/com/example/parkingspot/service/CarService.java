@@ -1,4 +1,4 @@
-package com.example.parkingspot.car;
+package com.example.parkingspot.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.parkingspot.person.Person;
-import com.example.parkingspot.person.PersonService;
+import com.example.parkingspot.entity.Car;
+import com.example.parkingspot.entity.Person;
+import com.example.parkingspot.repository.CarRepository;
 
 import jakarta.transaction.Transactional;
 

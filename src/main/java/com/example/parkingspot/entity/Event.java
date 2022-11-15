@@ -1,11 +1,13 @@
-package com.example.parkingspot.event;
+package com.example.parkingspot.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
-import com.example.parkingspot.car.Car;
-import com.example.parkingspot.zone.Zone;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,19 +22,21 @@ public class Event {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private Date start;
-  private Date stop;
+  @CreationTimestamp
+  @Column(nullable = false, updatable = false)
+  private LocalDateTime start;
+  @UpdateTimestamp
+  private LocalDateTime stop;
   private boolean active = true;
   @OneToOne(cascade = CascadeType.DETACH)
   @JoinColumn(name = "car", referencedColumnName = "id")
   private Car car;
   @ManyToOne
   private Zone zone;
-
   @Transient
-  private int car_id;
+  private Long carId;
   @Transient
-  private int zone_id;
+  private Long zoneId;
 
   public Event() {
   }
@@ -43,22 +47,6 @@ public class Event {
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public Date getStart() {
-    return start;
-  }
-
-  public void setStart(Date start) {
-    this.start = start;
-  }
-
-  public Date getStop() {
-    return stop;
-  }
-
-  public void setStop(Date stop) {
-    this.stop = stop;
   }
 
   public boolean isActive() {
@@ -77,28 +65,44 @@ public class Event {
     this.car = car;
   }
 
-  public int getCar_id() {
-    return car_id;
-  }
-
-  public void setCar_id(int car_id) {
-    this.car_id = car_id;
-  }
-
-  public int getZone_id() {
-    return zone_id;
-  }
-
-  public void setZone_id(int zone_id) {
-    this.zone_id = zone_id;
-  }
-
   public Zone getZone() {
     return zone;
   }
 
   public void setZone(Zone zone) {
     this.zone = zone;
+  }
+
+  public Long getCarId() {
+    return carId;
+  }
+
+  public void setCarId(Long carId) {
+    this.carId = carId;
+  }
+
+  public Long getZoneId() {
+    return zoneId;
+  }
+
+  public void setZoneId(Long zoneId) {
+    this.zoneId = zoneId;
+  }
+
+  public LocalDateTime getStart() {
+    return start;
+  }
+
+  public void setStart(LocalDateTime start) {
+    this.start = start;
+  }
+
+  public LocalDateTime getStop() {
+    return stop;
+  }
+
+  public void setStop(LocalDateTime stop) {
+    this.stop = stop;
   }
 
 }

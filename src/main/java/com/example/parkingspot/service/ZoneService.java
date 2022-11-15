@@ -1,6 +1,11 @@
-package com.example.parkingspot.zone;
+package com.example.parkingspot.service;
+
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
+import com.example.parkingspot.entity.Zone;
+import com.example.parkingspot.repository.ZoneRepository;
 
 @Service
 public class ZoneService {
@@ -12,5 +17,9 @@ public class ZoneService {
 
   public void registerNewParkingZone(Zone zone) {
     zoneRepository.save(zone);
+  }
+
+  public Optional<Zone> findZoneById(Long zoneId) {
+    return zoneRepository.findById(zoneId);
   }
 }

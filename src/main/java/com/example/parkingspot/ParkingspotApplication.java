@@ -11,3 +11,8 @@ public class ParkingspotApplication {
 	}
 
 }
+// TODO
+// Refactor relations OtM, MtO
+// Look over CascadeTypes
+// @Configuration classes
+// Refactor querys in carRepo class
