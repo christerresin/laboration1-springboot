@@ -2,8 +2,9 @@ package com.example.parkingspot.entity;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class Zone {
   private Long id;
   private String location;
   private String name;
+  @JsonIgnore
   @OneToMany(mappedBy = "zone", cascade = CascadeType.PERSIST)
   private Set<Event> events;
 

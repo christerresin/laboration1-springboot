@@ -2,6 +2,8 @@ package com.example.parkingspot.entity;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,6 +25,7 @@ public class Car {
   private Long personId;
   @ManyToOne
   private Person person;
+  @JsonIgnore
   @OneToMany(mappedBy = "car", cascade = CascadeType.PERSIST)
   private Set<Event> events;
 

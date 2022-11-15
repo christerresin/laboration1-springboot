@@ -1,6 +1,5 @@
 package com.example.parkingspot.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +10,7 @@ import com.example.parkingspot.service.CarService;
 import com.example.parkingspot.service.EventService;
 
 @RestController
-@RequestMapping("/api/events")
+@RequestMapping("/api")
 public class EventController {
 
   private CarService carService;
@@ -22,7 +21,7 @@ public class EventController {
     this.eventService = eventService;
   }
 
-  @PostMapping
+  @PostMapping("/events")
   public Event addNewEvent(@RequestBody Event event) {
     return eventService.registerNewEvent(event);
   }

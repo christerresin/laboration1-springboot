@@ -36,8 +36,12 @@ public class CarService {
     return carRepository.getAllCarsById(personId);
   }
 
-  public Car getOneCarById(Long personId) {
+  public Car getOneCarByPersonId(Long personId) {
     return carRepository.findById(personId).orElseThrow(() -> new RuntimeException("No car found"));
+  }
+
+  public Optional<Car> findCarById(Long carId) {
+    return carRepository.findById(carId);
   }
 
   public List<Car> getAllCars() {
