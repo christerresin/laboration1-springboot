@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,15 @@ public class EventController {
   @GetMapping
   public List<Event> getAllEvents() {
     return eventService.fetchAllEvents();
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<Event> getEventById(@PathVariable("id") Long eventId) {
+    Event foundEvent = eventService.fetchEventById(eventId);
+    if (foundEvent != null) {
+      return new ResponseEntity<>(foundEvent, HttpStatus.OK);
+    }
+    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
 
   @PostMapping

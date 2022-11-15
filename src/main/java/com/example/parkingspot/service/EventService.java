@@ -45,4 +45,12 @@ public class EventService {
     return eventRepository.findAll();
   }
 
+  public Event fetchEventById(Long eventId) {
+    Optional<Event> eventOptional = eventRepository.findById(eventId);
+    if (eventOptional.isPresent()) {
+      return eventOptional.get();
+    }
+    return null;
+  }
+
 }
