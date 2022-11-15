@@ -1,5 +1,6 @@
 package com.example.parkingspot.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
@@ -38,6 +39,10 @@ public class EventService {
     } catch (DataAccessException e) {
       return new Event();
     }
+  }
+
+  public List<Event> fetchAllEvents() {
+    return eventRepository.findAll();
   }
 
 }
