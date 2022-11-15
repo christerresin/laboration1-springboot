@@ -31,8 +31,19 @@ public class PersonController {
   }
 
   @PostMapping("/persons")
-  public void addNewPerson(@RequestBody Person person) {
-    personService.addNewPerson(person);
+  public ResponseEntity<Person> addNewPerson(@RequestBody Person person) {
+
+    Person newUser = personService.registerNewPerson(person);
+
+    if (newUser.equals(person)) {
+      return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    if (newUser != null) {
+      return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
+
+    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
 }

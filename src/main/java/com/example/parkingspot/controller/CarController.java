@@ -18,7 +18,7 @@ import com.example.parkingspot.entity.Car;
 import com.example.parkingspot.service.CarService;
 
 @RestController
-@RequestMapping("/api/cars")
+@RequestMapping("/api")
 public class CarController {
   private final CarService carService;
 
@@ -28,12 +28,12 @@ public class CarController {
 
   }
 
-  @GetMapping
+  @GetMapping("/cars")
   public List<Car> getAllCars() {
     return carService.getAllCars();
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/cars/{id}")
   public List<Car> getCarsByOwner(@PathVariable("id") Long personId) {
     // List<Long> carpersonId = Arrays.asList(personId);
     return carService.getCarsById(personId);
@@ -44,14 +44,14 @@ public class CarController {
   // return carService.getOneCarById(ownerId);
   // }
 
-  @PostMapping
+  @PostMapping("/cars")
   public ResponseEntity<Car> registerNewCar(@RequestBody Car car) {
     Car newCar = carService.addNewCar(car);
     // TODO: add checking/optional if write was successfull or not
-    return new ResponseEntity<Car>(newCar, HttpStatus.OK);
+    return new ResponseEntity<Car>(newCar, HttpStatus.CREATED);
   }
 
-  @PutMapping("/{id}")
+  @PutMapping("/cars/{id}")
   public ResponseEntity<Car> changeOwner(@PathVariable("id") Long carId,
       @RequestParam(required = true) Long newOwnerId) {
     Car foundCar = carService.updateCarOwner(carId, newOwnerId);

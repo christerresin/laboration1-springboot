@@ -2,6 +2,7 @@ package com.example.parkingspot.service;
 
 import java.util.Optional;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.parkingspot.entity.Car;
@@ -31,7 +32,12 @@ public class EventService {
     if (carOptional.isPresent()) {
       event.setCar(carOptional.get());
     }
-    return eventRepository.save(event);
+    try {
+      eventRepository.save(event);
+      return event;
+    } catch (DataAccessException e) {
+      return new Event();
+    }
   }
 
 }

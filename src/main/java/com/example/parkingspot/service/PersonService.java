@@ -32,8 +32,17 @@ public class PersonService {
     return personRepository.findAll();
   }
 
-  public void addNewPerson(Person person) {
-    personRepository.save(person);
+  public Person registerNewPerson(Person person) {
+    Optional<Person> existingPerson = personRepository.findByFirstNameAndLastName(person.getFirstName(),
+        person.getLastName());
+    if (existingPerson.isPresent()) {
+      return person;
+    }
+    Person newPerson = personRepository.save(person);
+    if (newPerson.getId() > 0) {
+      return newPerson;
+    }
+    return null;
   }
 
 }

@@ -33,7 +33,7 @@ public class CarService {
   }
 
   public List<Car> getCarsById(Long personId) {
-    return carRepository.getAllCarsById(personId);
+    return carRepository.getAllCarsByPersonId(personId);
   }
 
   public Car getOneCarByPersonId(Long personId) {
