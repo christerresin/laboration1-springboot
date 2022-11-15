@@ -1,5 +1,6 @@
 package com.example.parkingspot.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -21,5 +22,9 @@ public class ZoneService {
 
   public Optional<Zone> findZoneById(Long zoneId) {
     return zoneRepository.findById(zoneId);
+  }
+
+  public List<Zone> getAllZones() {
+    return zoneRepository.findAll();
   }
 }
