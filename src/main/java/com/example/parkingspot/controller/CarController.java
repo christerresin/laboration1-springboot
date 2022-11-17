@@ -48,7 +48,7 @@ public class CarController {
   public ResponseEntity<Car> registerNewCar(@RequestBody Car car) {
     Car newCar = carService.addNewCar(car);
     // TODO: add checking/optional if write was successfull or not
-    return new ResponseEntity<Car>(newCar, HttpStatus.CREATED);
+    return ResponseEntity.created(null).body(newCar);
   }
 
   @PutMapping("/cars/{id}")
@@ -56,9 +56,9 @@ public class CarController {
       @RequestParam(required = true) Long newOwnerId) {
     Car foundCar = carService.updateCarOwner(carId, newOwnerId);
     if (foundCar != null) {
-      return new ResponseEntity<>(foundCar, HttpStatus.OK);
+      return ResponseEntity.ok().body(foundCar);
     }
-    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    return ResponseEntity.notFound().build();
   }
 
 }

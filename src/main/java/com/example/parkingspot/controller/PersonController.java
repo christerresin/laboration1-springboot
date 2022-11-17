@@ -32,9 +32,9 @@ public class PersonController {
   public ResponseEntity<Person> getPerson(@PathVariable(name = "id") Long personId) {
     Person foundPerson = personService.getPersonById(personId);
     if (foundPerson != null) {
-      return new ResponseEntity<>(foundPerson, HttpStatus.OK);
+      return ResponseEntity.ok().body(foundPerson);
     }
-    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    return ResponseEntity.notFound().build();
   }
 
   @PostMapping("/persons")
@@ -43,11 +43,11 @@ public class PersonController {
     Person newUser = personService.registerNewPerson(person);
 
     if (newUser.equals(person)) {
-      return new ResponseEntity<>(HttpStatus.CONFLICT);
+      return ResponseEntity.noContent().build();
     }
 
     if (newUser != null) {
-      return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+      return ResponseEntity.created(null).body(newUser);
     }
 
     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

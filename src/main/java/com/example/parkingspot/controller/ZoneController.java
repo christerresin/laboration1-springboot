@@ -36,9 +36,9 @@ public class ZoneController {
   public ResponseEntity<Zone> getZoneById(Long zoneId) {
     Optional<Zone> zoneOptional = zoneService.findZoneById(zoneId);
     if (zoneOptional.isPresent()) {
-      return new ResponseEntity<>(zoneOptional.get(), HttpStatus.OK);
+      return ResponseEntity.ok().body(zoneOptional.get());
     }
-    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    return ResponseEntity.notFound().build();
   }
 
 }

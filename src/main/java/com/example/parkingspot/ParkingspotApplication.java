@@ -14,7 +14,6 @@ public class ParkingspotApplication {
 // TODO
 // @Configuration classes
 // Refactor querys in carRepo class
-// Refactor ResponseEntity to fluid API "return ResponseEntity.ok().body()..."
-// Include URI location in Post endpoints on .created()
+// Include URI location in Post endpoints on .created() and relace null
 // Save new person upon event creation if not present in DB
 // Save new car upon event creation if not present in DB
