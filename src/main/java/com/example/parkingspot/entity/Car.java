@@ -12,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Transient;
 
 @Entity
 public class Car {
@@ -21,8 +20,6 @@ public class Car {
   private Long id;
   @Column(unique = true)
   private String registration;
-  @Transient
-  private Long personId;
   @ManyToOne
   private Person person;
   @JsonIgnore
@@ -58,14 +55,6 @@ public class Car {
 
   public void setPerson(Person person) {
     this.person = person;
-  }
-
-  public Long getPersonId() {
-    return personId;
-  }
-
-  public void setPersonId(Long personId) {
-    this.personId = personId;
   }
 
 }

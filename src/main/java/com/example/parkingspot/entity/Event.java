@@ -11,7 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Transient;
 
 @Entity
 public class Event {
@@ -28,10 +27,6 @@ public class Event {
   private Car car;
   @ManyToOne
   private Zone zone;
-  @Transient
-  private Long carId;
-  @Transient
-  private Long zoneId;
 
   public Event() {
   }
@@ -66,22 +61,6 @@ public class Event {
 
   public void setZone(Zone zone) {
     this.zone = zone;
-  }
-
-  public Long getCarId() {
-    return carId;
-  }
-
-  public void setCarId(Long carId) {
-    this.carId = carId;
-  }
-
-  public Long getZoneId() {
-    return zoneId;
-  }
-
-  public void setZoneId(Long zoneId) {
-    this.zoneId = zoneId;
   }
 
   public LocalDateTime getStart() {

@@ -25,11 +25,15 @@ public class EventService {
   }
 
   public Event registerNewEvent(Event event) {
-    Optional<Zone> zoneOptional = zoneService.findZoneById(event.getZoneId());
+    // Optional<Zone> zoneOptional = zoneService.findZoneById(event.getZoneId());
+    Optional<Zone> zoneOptional = zoneService.findZoneById(event.getZone().getId());
     if (zoneOptional.isPresent()) {
       event.setZone(zoneOptional.get());
     }
-    Optional<Car> carOptional = carService.findCarById(event.getCarId());
+
+    // Optional<Car> carOptional = carService.findCarById(event.getCarId());
+    // Optional<Car> carOptional = carService.findCarById(event.getCar().getId());
+    Optional<Car> carOptional = carService.fetchCarByRegistration(event.getCar().getRegistration());
     if (carOptional.isPresent()) {
       event.setCar(carOptional.get());
     }

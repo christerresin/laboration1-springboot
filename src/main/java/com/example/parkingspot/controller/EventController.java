@@ -33,17 +33,17 @@ public class EventController {
   public ResponseEntity<Event> getEventById(@PathVariable("id") Long eventId) {
     Event foundEvent = eventService.fetchEventById(eventId);
     if (foundEvent != null) {
-      return new ResponseEntity<>(foundEvent, HttpStatus.OK);
+      return ResponseEntity.ok().body(foundEvent);
     }
-    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    return ResponseEntity.notFound().build();
   }
 
   @PostMapping
   public ResponseEntity<Event> addNewEvent(@RequestBody Event event) {
     Event newEvent = eventService.registerNewEvent(event);
     if (newEvent.getId() != null) {
-      return new ResponseEntity<Event>(newEvent, HttpStatus.CREATED);
+      return ResponseEntity.created(null).body(newEvent);
     }
-    return new ResponseEntity<Event>(newEvent, HttpStatus.INTERNAL_SERVER_ERROR);
+    return ResponseEntity.internalServerError().body(newEvent);
   }
 }
