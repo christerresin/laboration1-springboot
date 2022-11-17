@@ -1,5 +1,6 @@
 package com.example.parkingspot.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -7,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.parkingspot.entity.Event;
@@ -45,5 +48,15 @@ public class EventController {
       return ResponseEntity.created(null).body(newEvent);
     }
     return ResponseEntity.internalServerError().body(newEvent);
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<Event> updateEventStopTime(@PathVariable("id") Long eventId,
+      @RequestParam("stopTime") LocalDateTime stopTime) {
+    Event event = eventService.setNewEventStopTime(eventId, stopTime);
+    if (event.getId() != null) {
+      return ResponseEntity.ok().body(event);
+    }
+    return ResponseEntity.notFound().build();
   }
 }

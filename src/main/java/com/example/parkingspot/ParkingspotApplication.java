@@ -16,4 +16,5 @@ public class ParkingspotApplication {
 // Refactor querys in carRepo class
 // Refactor ResponseEntity to fluid API "return ResponseEntity.ok().body()..."
 // Include URI location in Post endpoints on .created()
-// Replace transient id to work with id inside Entity/obj when passed
+// Save new person upon event creation if not present in DB
+// Save new car upon event creation if not present in DB

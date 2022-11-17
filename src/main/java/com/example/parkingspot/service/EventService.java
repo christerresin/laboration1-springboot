@@ -1,5 +1,6 @@
 package com.example.parkingspot.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,18 +26,22 @@ public class EventService {
   }
 
   public Event registerNewEvent(Event event) {
-    // Optional<Zone> zoneOptional = zoneService.findZoneById(event.getZoneId());
     Optional<Zone> zoneOptional = zoneService.findZoneById(event.getZone().getId());
     if (zoneOptional.isPresent()) {
       event.setZone(zoneOptional.get());
     }
 
-    // Optional<Car> carOptional = carService.findCarById(event.getCarId());
-    // Optional<Car> carOptional = carService.findCarById(event.getCar().getId());
     Optional<Car> carOptional = carService.fetchCarByRegistration(event.getCar().getRegistration());
     if (carOptional.isPresent()) {
       event.setCar(carOptional.get());
     }
+
+    event.setStart(LocalDateTime.now());
+
+    if (!checkStopTimeIsAfterStart(event)) {
+      return new Event();
+    }
+
     try {
       eventRepository.save(event);
       return event;
@@ -55,6 +60,35 @@ public class EventService {
       return eventOptional.get();
     }
     return null;
+  }
+
+  public Event setNewEventStopTime(Long eventId, LocalDateTime stopTime) {
+    Optional<Event> event = eventRepository.findById(eventId);
+
+    // NEST THESE IFs?!
+    if (event.isPresent()) {
+      event.get().setStop(stopTime);
+    }
+
+    if (checkStopTimeIsAfterStart(event.get()) && event.isPresent()) {
+      eventRepository.save(event.get());
+      return event.get();
+    }
+
+    return new Event();
+
+  }
+
+  private boolean checkStopTimeIsAfterStart(Event event) {
+    LocalDateTime startTime = LocalDateTime.parse(String.valueOf(event.getStart()));
+    LocalDateTime stopTime = LocalDateTime.parse(String.valueOf(event.getStop()));
+    int diff = startTime.compareTo(stopTime);
+
+    if (diff > 0) {
+      return false;
+    }
+
+    return true;
   }
 
 }

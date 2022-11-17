@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.parkingspot.entity.Car;
-import com.example.parkingspot.entity.Event;
 import com.example.parkingspot.entity.Person;
 import com.example.parkingspot.repository.CarRepository;
 
@@ -28,10 +27,6 @@ public class CarService {
   public Car addNewCar(Car car) {
     Person owner = personService.getPersonById(car.getPerson().getId());
     car.setPerson(owner);
-    // Person owner = personService.getPersonById(car.getPersonId());
-    // Car newCar = new Car();
-    // newCar.setRegistration(car.getRegistration());
-    // newCar.setPerson(owner);
     return carRepository.save(car);
   }
 
