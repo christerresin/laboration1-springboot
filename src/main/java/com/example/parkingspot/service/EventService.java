@@ -14,6 +14,8 @@ import com.example.parkingspot.entity.Event;
 import com.example.parkingspot.entity.Zone;
 import com.example.parkingspot.repository.EventRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class EventService {
 
@@ -105,12 +107,15 @@ public class EventService {
     return true;
   }
 
+  @Transactional
   public List<Event> fetchAllActiveEvents() {
-    List<Event> eventsList = eventRepository.findByActiveTrue();
+    List<Event> eventsList = eventRepository.findByActiveStatus(true);
 
     eventsList.forEach(event -> {
       if (checkStopTimeIsBeforeNow(event)) {
         event.setActive(false);
+        eventRepository.save(event);
+        eventsList.remove(event);
       }
     });
 
