@@ -43,8 +43,21 @@ public class EventController {
   }
 
   @GetMapping("/active")
-  public List<Event> getActiveEvents() {
-    return eventService.fetchAllActiveEvents();
+  public ResponseEntity<List<Event>> getActiveEvents() {
+    List<Event> activeEvents = eventService.fetchAllActiveEvents(true);
+    if (activeEvents != null) {
+      return ResponseEntity.ok().body(activeEvents);
+    }
+    return ResponseEntity.notFound().build();
+  }
+
+  @GetMapping("/inactive")
+  public ResponseEntity<List<Event>> getInactiveEvents() {
+    List<Event> activeEvents = eventService.fetchAllActiveEvents(false);
+    if (activeEvents != null) {
+      return ResponseEntity.ok().body(activeEvents);
+    }
+    return ResponseEntity.notFound().build();
   }
 
   @PostMapping

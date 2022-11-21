@@ -108,18 +108,23 @@ public class EventService {
   }
 
   @Transactional
-  public List<Event> fetchAllActiveEvents() {
-    List<Event> eventsList = eventRepository.findByActiveStatus(true);
+  public List<Event> fetchAllActiveEvents(boolean status) {
+    List<Event> eventsList = eventRepository.findByActiveStatus(status);
 
-    eventsList.forEach(event -> {
-      if (checkStopTimeIsBeforeNow(event)) {
-        event.setActive(false);
-        eventRepository.save(event);
-        eventsList.remove(event);
+    for (int i = 0; i < eventsList.size(); i++) {
+      if (checkStopTimeIsBeforeNow(eventsList.get(i))) {
+        Event currentEvent = eventsList.get(i);
+        currentEvent.setActive(false);
+        eventRepository.save(currentEvent);
+        eventsList.remove(eventsList.get(i));
       }
-    });
+    }
 
-    return eventsList;
+    if (eventsList.size() > 0) {
+
+      return eventsList;
+    }
+    return null;
   }
 
 }
