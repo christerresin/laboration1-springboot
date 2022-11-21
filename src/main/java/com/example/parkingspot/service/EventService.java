@@ -1,12 +1,10 @@
 package com.example.parkingspot.service;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.parkingspot.entity.Car;
