@@ -1,5 +1,6 @@
 package com.example.parkingspot.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.parkingspot.entity.Person;
 import com.example.parkingspot.service.PersonService;
@@ -41,13 +43,11 @@ public class PersonController {
   public ResponseEntity<Person> addNewPerson(@RequestBody Person person) {
 
     Person newUser = personService.registerNewPerson(person);
-
-    if (newUser.equals(person)) {
-      return ResponseEntity.noContent().build();
-    }
+    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newUser.getId())
+        .toUri();
 
     if (newUser != null) {
-      return ResponseEntity.created(null).body(newUser);
+      return ResponseEntity.created(location).body(newUser);
     }
 
     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

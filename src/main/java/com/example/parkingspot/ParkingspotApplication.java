@@ -14,6 +14,10 @@ public class ParkingspotApplication {
 // TODO
 // @Configuration classes
 // Refactor querys in carRepo class
-// Include URI location in Post endpoints on .created() and relace null
 // Save new person upon event creation if not present in DB
 // Save new car upon event creation if not present in DB
+// Custom query for active/inactive parkings
+
+// Refactor zone to optionals
+// Hibernate.initialize() - to not use EAGER as FetchType.
+// Load data before view/serilization

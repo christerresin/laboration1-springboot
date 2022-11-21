@@ -2,10 +2,14 @@ package com.example.parkingspot.entity;
 
 import java.util.Set;
 
+import org.geolatte.geom.G2D;
+import org.geolatte.geom.Point;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,10 +20,24 @@ public class Zone {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String location;
+
+  /**
+   * Post new Zone passed as:
+   * {
+   * "name": "NAME OF ZONE",
+   * "coordinate": {
+   * "type": "point",
+   * "coordinates": [
+   * XX.XXXXXXX,
+   * XX.XXXXXXX
+   * ]
+   * }
+   * }
+   */
+  private Point<G2D> coordinate;
   private String name;
   @JsonIgnore
-  @OneToMany(mappedBy = "zone", cascade = CascadeType.PERSIST)
+  @OneToMany(mappedBy = "zone", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   private Set<Event> events;
 
   public Zone() {
@@ -49,12 +67,12 @@ public class Zone {
     this.events = events;
   }
 
-  public String getLocation() {
-    return location;
+  public Point<G2D> getCoordinate() {
+    return coordinate;
   }
 
-  public void setLocation(String location) {
-    this.location = location;
+  public void setCoordinate(Point<G2D> coordinate) {
+    this.coordinate = coordinate;
   }
 
 }

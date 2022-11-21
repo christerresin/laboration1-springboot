@@ -16,8 +16,8 @@ public class ZoneService {
     this.zoneRepository = zoneRepository;
   }
 
-  public void registerNewParkingZone(Zone zone) {
-    zoneRepository.save(zone);
+  public Zone registerNewParkingZone(Zone zone) {
+    return zoneRepository.save(zone);
   }
 
   public Optional<Zone> findZoneById(Long zoneId) {

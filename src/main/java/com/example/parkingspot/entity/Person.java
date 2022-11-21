@@ -4,6 +4,7 @@ import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,7 +17,7 @@ public class Person {
   private long id;
   private String firstName;
   private String lastName;
-  @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+  @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   private Set<Car> cars;
 
   public Person() {

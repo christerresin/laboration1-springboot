@@ -1,9 +1,9 @@
 package com.example.parkingspot.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.parkingspot.entity.Car;
 import com.example.parkingspot.service.CarService;
@@ -34,9 +35,14 @@ public class CarController {
   }
 
   @GetMapping("/cars/{id}")
-  public List<Car> getCarsByOwner(@PathVariable("id") Long personId) {
+  public ResponseEntity<List<Car>> getCarsByOwner(@PathVariable("id") Long personId) {
     // List<Long> carpersonId = Arrays.asList(personId);
-    return carService.getCarsById(personId);
+    List<Car> cars = carService.fetchCarsByOwnerId(personId);
+    if (cars != null) {
+      return ResponseEntity.ok().body(cars);
+    }
+    return ResponseEntity.notFound().build();
+
   }
 
   // @GetMapping("/car")
@@ -48,7 +54,9 @@ public class CarController {
   public ResponseEntity<Car> registerNewCar(@RequestBody Car car) {
     Car newCar = carService.addNewCar(car);
     // TODO: add checking/optional if write was successfull or not
-    return ResponseEntity.created(null).body(newCar);
+    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newCar.getId())
+        .toUri();
+    return ResponseEntity.created(location).body(newCar);
   }
 
   @PutMapping("/cars/{id}")

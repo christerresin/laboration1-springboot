@@ -3,6 +3,7 @@ package com.example.parkingspot.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,14 @@ public class CarService {
     return carRepository.save(car);
   }
 
-  public List<Car> getCarsById(Long personId) {
-    return carRepository.getAllCarsByPersonId(personId);
+  public List<Car> fetchCarsByOwnerId(Long personId) {
+    Optional<List<Car>> carsOptional = carRepository.getAllCarsByPersonId(personId);
+    if (carsOptional.isPresent()) {
+      Hibernate.initialize(carsOptional.get());
+      return carsOptional.get();
+    }
+
+    return null;
   }
 
   public Car getOneCarByPersonId(Long personId) {
