@@ -3,7 +3,6 @@ package com.example.parkingspot.controller;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,7 +49,7 @@ public class PersonController {
       return ResponseEntity.created(location).body(newUser);
     }
 
-    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    return ResponseEntity.internalServerError().build();
   }
 
 }

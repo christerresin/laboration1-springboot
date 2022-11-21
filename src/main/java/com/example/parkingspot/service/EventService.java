@@ -1,10 +1,12 @@
 package com.example.parkingspot.service;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.parkingspot.entity.Car;
@@ -89,6 +91,30 @@ public class EventService {
     }
 
     return true;
+  }
+
+  private boolean checkStopTimeIsBeforeNow(Event event) {
+    LocalDateTime now = LocalDateTime.now();
+    LocalDateTime stopTime = LocalDateTime.parse(String.valueOf(event.getStop()));
+    int diff = now.compareTo(stopTime);
+
+    if (diff < 0) {
+      return false;
+    }
+
+    return true;
+  }
+
+  public List<Event> fetchAllActiveEvents() {
+    List<Event> eventsList = eventRepository.findByActiveTrue();
+
+    eventsList.forEach(event -> {
+      if (checkStopTimeIsBeforeNow(event)) {
+        event.setActive(false);
+      }
+    });
+
+    return eventsList;
   }
 
 }

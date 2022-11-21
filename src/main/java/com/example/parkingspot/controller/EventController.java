@@ -42,6 +42,11 @@ public class EventController {
     return ResponseEntity.notFound().build();
   }
 
+  @GetMapping("/active")
+  public List<Event> getActiveEvents() {
+    return eventService.fetchAllActiveEvents();
+  }
+
   @PostMapping
   public ResponseEntity<Event> addNewEvent(@RequestBody Event event) {
     Event newEvent = eventService.registerNewEvent(event);
