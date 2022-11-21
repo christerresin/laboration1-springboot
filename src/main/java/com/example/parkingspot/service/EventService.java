@@ -108,7 +108,7 @@ public class EventService {
   }
 
   @Transactional
-  public List<Event> fetchAllActiveEvents(boolean status) {
+  public List<Event> fetchAllByActivityStatus(Boolean status) {
     List<Event> eventsList = eventRepository.findByActiveStatus(status);
 
     for (int i = 0; i < eventsList.size(); i++) {
@@ -124,6 +124,16 @@ public class EventService {
 
       return eventsList;
     }
+    return null;
+  }
+
+  public List<Event> fetchEventByRegistrationAndStatus(String carRegistration, boolean status) {
+    List<Event> eventsList = eventRepository.findByRegistrationAndActive(carRegistration, status);
+    if (eventsList != null) {
+
+      return eventsList;
+    }
+
     return null;
   }
 

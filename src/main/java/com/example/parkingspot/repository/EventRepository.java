@@ -15,4 +15,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
   @Query("SELECT e FROM Event e WHERE e.active = :status")
   List<Event> findByActiveStatus(@Param("status") Boolean status);
 
+  @Query("SELECT e FROM Event e WHERE e.car.registration = :registration AND e.active = :status")
+  List<Event> findByRegistrationAndActive(@Param("registration") String registration, @Param("status") Boolean status);
+
 }

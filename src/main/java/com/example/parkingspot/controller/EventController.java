@@ -42,21 +42,24 @@ public class EventController {
     return ResponseEntity.notFound().build();
   }
 
-  @GetMapping("/active")
-  public ResponseEntity<List<Event>> getActiveEvents() {
-    List<Event> activeEvents = eventService.fetchAllActiveEvents(true);
-    if (activeEvents != null) {
-      return ResponseEntity.ok().body(activeEvents);
+  @GetMapping("/status")
+  public ResponseEntity<List<Event>> getActiveEvents(@RequestParam("active") Boolean status) {
+    List<Event> eventsList = eventService.fetchAllByActivityStatus(status);
+    if (eventsList != null) {
+      return ResponseEntity.ok().body(eventsList);
     }
     return ResponseEntity.notFound().build();
   }
 
-  @GetMapping("/inactive")
-  public ResponseEntity<List<Event>> getInactiveEvents() {
-    List<Event> activeEvents = eventService.fetchAllActiveEvents(false);
-    if (activeEvents != null) {
-      return ResponseEntity.ok().body(activeEvents);
+  @GetMapping("/car")
+  public ResponseEntity<List<Event>> getEventsByRegistrationAndStatus(
+      @RequestParam("registration") String carRegistration, @RequestParam("status") Boolean status) {
+    List<Event> eventsList = eventService.fetchEventByRegistrationAndStatus(carRegistration, status);
+    if (eventsList != null) {
+      return ResponseEntity.ok().body(eventsList);
+
     }
+
     return ResponseEntity.notFound().build();
   }
 
