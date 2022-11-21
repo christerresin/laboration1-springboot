@@ -109,16 +109,7 @@ public class EventService {
 
   @Transactional
   public List<Event> fetchAllByActivityStatus(Boolean status) {
-    List<Event> eventsList = eventRepository.findByActiveStatus(status);
-
-    for (int i = 0; i < eventsList.size(); i++) {
-      if (checkStopTimeIsBeforeNow(eventsList.get(i))) {
-        Event currentEvent = eventsList.get(i);
-        currentEvent.setActive(false);
-        eventRepository.save(currentEvent);
-        eventsList.remove(eventsList.get(i));
-      }
-    }
+    List<Event> eventsList = updateEventStatus(eventRepository.findByActiveStatus(status));
 
     if (eventsList.size() > 0) {
 
@@ -128,13 +119,38 @@ public class EventService {
   }
 
   public List<Event> fetchEventByRegistrationAndStatus(String carRegistration, boolean status) {
-    List<Event> eventsList = eventRepository.findByRegistrationAndActive(carRegistration, status);
-    if (eventsList != null) {
+    List<Event> eventsList = updateEventStatus(eventRepository.findByRegistrationAndActive(carRegistration, status));
+    if (eventsList.size() > 0) {
 
       return eventsList;
     }
 
     return null;
+  }
+
+  public List<Event> fetchEventsByPersonIdAndStatus(String personId, Boolean status) {
+    List<Event> eventsList = updateEventStatus(eventRepository.findByPersonIdAndStatus(personId, status));
+    if (eventsList.size() > 0) {
+      return eventsList;
+    }
+    return null;
+  }
+
+  private List<Event> updateEventStatus(List<Event> events) {
+    List<Event> eventsList = events;
+
+    if (eventsList.size() > 0) {
+      for (int i = 0; i < eventsList.size(); i++) {
+        if (checkStopTimeIsBeforeNow(eventsList.get(i))) {
+          Event currentEvent = eventsList.get(i);
+          currentEvent.setActive(false);
+          eventRepository.save(currentEvent);
+          eventsList.remove(eventsList.get(i));
+        }
+      }
+    }
+
+    return eventsList;
   }
 
 }

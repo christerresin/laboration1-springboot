@@ -53,7 +53,7 @@ public class EventController {
 
   @GetMapping("/car")
   public ResponseEntity<List<Event>> getEventsByRegistrationAndStatus(
-      @RequestParam("registration") String carRegistration, @RequestParam("status") Boolean status) {
+      @RequestParam("registration") String carRegistration, @RequestParam("active") Boolean status) {
     List<Event> eventsList = eventService.fetchEventByRegistrationAndStatus(carRegistration, status);
     if (eventsList != null) {
       return ResponseEntity.ok().body(eventsList);
@@ -61,6 +61,17 @@ public class EventController {
     }
 
     return ResponseEntity.notFound().build();
+  }
+
+  @GetMapping("/person")
+  public ResponseEntity<List<Event>> getEventsByPersonIdAndStats(@RequestParam("id") String personId,
+      @RequestParam("active") Boolean status) {
+    List<Event> eventsList = eventService.fetchEventsByPersonIdAndStatus(personId, status);
+    if (eventsList != null) {
+      return ResponseEntity.ok().body(eventsList);
+    }
+    return ResponseEntity.notFound().build();
+
   }
 
   @PostMapping
