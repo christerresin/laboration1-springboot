@@ -33,7 +33,7 @@ public class ApplicationConfig {
   CommandLineRunner init(PersonRepository personRepository, CarRepository carRepository, ZoneRepository zoneRepository,
       EventRepository eventRepository) {
     return args -> {
-      // DB inserts in here
+      // DB INSERTS BELOW
 
       // Person inserts
       Person p1 = new Person();

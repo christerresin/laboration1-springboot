@@ -12,10 +12,6 @@ public class ParkingspotApplication {
 
 }
 // TODO
-// Refactor querys in carRepo class
-// Save new person upon event creation if not present in DB
-// Save new car upon event creation if not present in DB
-
-// Refactor zone to optionals
+// Refactor querys in carRepo class?
 
 // Batch update active status?

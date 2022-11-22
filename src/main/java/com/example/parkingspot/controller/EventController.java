@@ -36,6 +36,7 @@ public class EventController {
   @GetMapping("/{id}")
   public ResponseEntity<Event> getEventById(@PathVariable("id") Long eventId) {
     Event foundEvent = eventService.fetchEventById(eventId);
+
     if (foundEvent != null) {
       return ResponseEntity.ok().body(foundEvent);
     }
@@ -45,6 +46,7 @@ public class EventController {
   @GetMapping("/status")
   public ResponseEntity<List<Event>> getActiveEvents(@RequestParam("active") Boolean status) {
     List<Event> eventsList = eventService.fetchAllByActivityStatus(status);
+
     if (eventsList != null) {
       return ResponseEntity.ok().body(eventsList);
     }
@@ -55,9 +57,9 @@ public class EventController {
   public ResponseEntity<List<Event>> getEventsByRegistrationAndStatus(
       @RequestParam("registration") String carRegistration, @RequestParam("active") Boolean status) {
     List<Event> eventsList = eventService.fetchEventByRegistrationAndStatus(carRegistration, status);
+
     if (eventsList != null) {
       return ResponseEntity.ok().body(eventsList);
-
     }
 
     return ResponseEntity.notFound().build();
@@ -67,11 +69,12 @@ public class EventController {
   public ResponseEntity<List<Event>> getEventsByPersonIdAndStats(@RequestParam("id") String personId,
       @RequestParam("active") Boolean status) {
     List<Event> eventsList = eventService.fetchEventsByPersonIdAndStatus(personId, status);
+
     if (eventsList != null) {
       return ResponseEntity.ok().body(eventsList);
     }
-    return ResponseEntity.notFound().build();
 
+    return ResponseEntity.notFound().build();
   }
 
   @PostMapping
@@ -79,19 +82,24 @@ public class EventController {
     Event newEvent = eventService.registerNewEvent(event);
     URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newEvent.getId())
         .toUri();
+
     if (newEvent.getId() != null) {
       return ResponseEntity.created(location).body(newEvent);
     }
+
     return ResponseEntity.internalServerError().body(newEvent);
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<Event> updateEventStopTime(@PathVariable("id") Long eventId,
       @RequestParam("stopTime") LocalDateTime stopTime) {
+
     Event event = eventService.setNewEventStopTime(eventId, stopTime);
+
     if (event.getId() != null) {
       return ResponseEntity.ok().body(event);
     }
+
     return ResponseEntity.notFound().build();
   }
 }
