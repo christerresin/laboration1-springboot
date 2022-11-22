@@ -66,6 +66,7 @@ public class EventService {
 
   public Event setNewEventStopTime(Long eventId, LocalDateTime stopTime) {
     Optional<Event> event = eventRepository.findById(eventId);
+    // METHOD with logic to NOT allow user to set stop time before current stop time
 
     // NEST THESE IFs?!
     if (event.isPresent()) {
@@ -73,8 +74,7 @@ public class EventService {
     }
 
     if (checkStopTimeIsAfterStart(event.get()) && event.isPresent()) {
-      eventRepository.save(event.get());
-      return event.get();
+      return eventRepository.save(event.get());
     }
 
     return new Event();
@@ -96,7 +96,7 @@ public class EventService {
   private boolean checkStopTimeIsBeforeNow(Event event) {
     LocalDateTime now = LocalDateTime.now();
     LocalDateTime stopTime = LocalDateTime.parse(String.valueOf(event.getStop()));
-    int diff = now.compareTo(stopTime);
+    int diff = stopTime.compareTo(now);
 
     if (diff < 0) {
       return false;
@@ -134,16 +134,17 @@ public class EventService {
     return null;
   }
 
+  @Transactional
   private List<Event> updateEventStatus(List<Event> events) {
     List<Event> eventsList = events;
 
     if (eventsList.size() > 0) {
       for (int i = 0; i < eventsList.size(); i++) {
-        if (checkStopTimeIsBeforeNow(eventsList.get(i))) {
+        if (!checkStopTimeIsBeforeNow(eventsList.get(i))) {
           Event currentEvent = eventsList.get(i);
           currentEvent.setActive(false);
           eventRepository.save(currentEvent);
-          eventsList.remove(eventsList.get(i));
+          eventsList.remove(i);
         }
       }
     }
