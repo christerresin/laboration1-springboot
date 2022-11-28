@@ -4,9 +4,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +39,8 @@ public class ZoneController {
     return ResponseEntity.created(location).body(newZone);
   }
 
-  public ResponseEntity<Zone> getZoneById(Long zoneId) {
+  @GetMapping("/{id}")
+  public ResponseEntity<Zone> getZoneById(@PathVariable("id") Long zoneId) {
     Optional<Zone> zoneOptional = zoneService.findZoneById(zoneId);
     if (zoneOptional.isPresent()) {
       return ResponseEntity.ok().body(zoneOptional.get());
