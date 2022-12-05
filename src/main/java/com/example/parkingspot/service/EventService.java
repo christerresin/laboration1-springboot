@@ -1,6 +1,9 @@
 package com.example.parkingspot.service;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,7 @@ public class EventService {
   private ZoneService zoneService;
   private EventRepository eventRepository;
   private CarService carService;
+  private static final DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
 
   public EventService(ZoneService zoneService, EventRepository eventRepository, CarService carService) {
     this.zoneService = zoneService;
@@ -150,6 +154,12 @@ public class EventService {
     }
 
     return eventsList;
+  }
+
+  public List<Event> fetchAllEventsByDateAndZoneId(Long zoneId, LocalDate date) {
+
+    LocalDateTime ldt = date.atStartOfDay();
+    return eventRepository.findAllEventsByDate(zoneId, ldt);
   }
 
 }

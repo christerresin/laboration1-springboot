@@ -1,5 +1,6 @@
 package com.example.parkingspot.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,5 +21,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
   @Query("SELECT e FROM Event e WHERE e.car.person.id = :personId AND e.active = :status")
   List<Event> findByPersonIdAndStatus(@Param("personId") String personId, @Param("status") Boolean status);
+
+  @Query("SELECT e FROM Event e WHERE e.zone.id = :zoneId AND e.start > :todaysDate")
+  List<Event> findAllEventsByDate(@Param("zoneId") Long zoneId, @Param("todaysDate") LocalDateTime todaysDateString);
 
 }

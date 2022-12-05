@@ -1,6 +1,7 @@
 package com.example.parkingspot.controller;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,16 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.parkingspot.entity.Event;
 import com.example.parkingspot.entity.Zone;
+import com.example.parkingspot.service.EventService;
 import com.example.parkingspot.service.ZoneService;
 
 @RestController
 @RequestMapping("/api/zones")
 public class ZoneController {
   private ZoneService zoneService;
+  private EventService eventService;
 
-  public ZoneController(ZoneService zoneService) {
+  public ZoneController(ZoneService zoneService, EventService eventService) {
     this.zoneService = zoneService;
+    this.eventService = eventService;
   }
 
   @GetMapping
@@ -46,6 +51,11 @@ public class ZoneController {
       return ResponseEntity.ok().body(zoneOptional.get());
     }
     return ResponseEntity.notFound().build();
+  }
+
+  @GetMapping("/{id}/events/{date}")
+  public List<Event> getAllEventsByDateAndZone(@PathVariable("id") Long zoneId, @PathVariable("date") LocalDate date) {
+    return eventService.fetchAllEventsByDateAndZoneId(zoneId, date);
   }
 
 }

@@ -28,10 +28,10 @@ public class EventController {
     this.eventService = eventService;
   }
 
-  @GetMapping
-  public List<Event> getAllEvents() {
-    return eventService.fetchAllEvents();
-  }
+  // @GetMapping
+  // public List<Event> getAllEvents() {
+  // return eventService.fetchAllEvents();
+  // }
 
   @GetMapping("/{id}")
   public ResponseEntity<Event> getEventById(@PathVariable("id") Long eventId) {
