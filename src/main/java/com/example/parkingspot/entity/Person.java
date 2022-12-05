@@ -1,6 +1,6 @@
 package com.example.parkingspot.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -18,7 +18,7 @@ public class Person {
   private String firstName;
   private String lastName;
   @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-  private Set<Car> cars;
+  private List<Car> cars;
 
   public Person() {
 

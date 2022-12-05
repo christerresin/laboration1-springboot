@@ -1,6 +1,6 @@
 package com.example.parkingspot.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import org.geolatte.geom.G2D;
 import org.geolatte.geom.Point;
@@ -38,7 +38,7 @@ public class Zone {
   private String name;
   @JsonIgnore
   @OneToMany(mappedBy = "zone", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  private Set<Event> events;
+  private List<Event> events;
 
   public Zone() {
   }
@@ -59,11 +59,11 @@ public class Zone {
     this.name = name;
   }
 
-  public Set<Event> getEvents() {
+  public List<Event> getEvents() {
     return events;
   }
 
-  public void setEvents(Set<Event> events) {
+  public void setEvents(List<Event> events) {
     this.events = events;
   }
 

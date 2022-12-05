@@ -1,5 +1,6 @@
 package com.example.parkingspot.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -150,6 +151,16 @@ public class EventService {
     }
 
     return eventsList;
+  }
+
+  public List<Event> fetchAllEventsByDateAndZoneId(Long zoneId, LocalDate date) {
+
+    LocalDateTime ldt = date.atStartOfDay();
+    return eventRepository.findAllEventsByDate(zoneId, ldt);
+  }
+
+  public List<Event> fetchEventsByIdAndActive(Long id) {
+    return eventRepository.findAllActiveEventsByCarId(id);
   }
 
 }

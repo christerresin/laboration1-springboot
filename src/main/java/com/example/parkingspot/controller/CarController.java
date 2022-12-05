@@ -3,7 +3,6 @@ package com.example.parkingspot.controller;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,16 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.parkingspot.entity.Car;
+import com.example.parkingspot.entity.Event;
 import com.example.parkingspot.service.CarService;
+import com.example.parkingspot.service.EventService;
 
 @RestController
 @RequestMapping("/api")
 public class CarController {
   private final CarService carService;
+  private final EventService eventService;
 
-  @Autowired
-  public CarController(CarService carService) {
+  public CarController(CarService carService, EventService eventService) {
     this.carService = carService;
+    this.eventService = eventService;
 
   }
 
@@ -65,6 +67,16 @@ public class CarController {
     Car foundCar = carService.updateCarOwner(carId, newOwnerId);
     if (foundCar != null) {
       return ResponseEntity.ok().body(foundCar);
+    }
+    return ResponseEntity.notFound().build();
+  }
+
+  @GetMapping("/cars/{id}/events")
+  public ResponseEntity<List<Event>> getEventsByCarId(@PathVariable("id") Long id) {
+    List<Event> eventsList = eventService.fetchEventsByIdAndActive(id);
+
+    if (eventsList.size() > 0) {
+      return ResponseEntity.ok().body(eventsList);
     }
     return ResponseEntity.notFound().build();
   }

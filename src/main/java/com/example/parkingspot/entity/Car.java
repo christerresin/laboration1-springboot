@@ -1,6 +1,6 @@
 package com.example.parkingspot.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,7 +25,7 @@ public class Car {
   private Person person;
   @JsonIgnore
   @OneToMany(mappedBy = "car", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  private Set<Event> events;
+  private List<Event> events;
 
   public Car() {
   }
