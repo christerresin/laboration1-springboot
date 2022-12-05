@@ -14,7 +14,7 @@ import com.example.parkingspot.entity.Car;
 public interface CarRepository extends JpaRepository<Car, Long> {
 
   @Query("SELECT c FROM Car c WHERE c.person.id = :personId")
-  Optional<List<Car>> getAllCarsByPersonId(@Param("personId") Long personId);
+  List<Car> getAllCarsByPersonId(@Param("personId") Long personId);
 
   Optional<Car> findByRegistration(String registration);
 
