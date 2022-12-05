@@ -159,4 +159,8 @@ public class EventService {
     return eventRepository.findAllEventsByDate(zoneId, ldt);
   }
 
+  public List<Event> fetchEventsByIdAndActive(Long id) {
+    return eventRepository.findAllActiveEventsByCarId(id);
+  }
+
 }

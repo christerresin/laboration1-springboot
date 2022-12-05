@@ -53,6 +53,7 @@ public class EventController {
     return ResponseEntity.notFound().build();
   }
 
+  // To be moved or deleted
   @GetMapping("/car")
   public ResponseEntity<List<Event>> getEventsByRegistrationAndStatus(
       @RequestParam("registration") String carRegistration, @RequestParam("active") Boolean status) {

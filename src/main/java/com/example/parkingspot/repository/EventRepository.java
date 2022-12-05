@@ -25,4 +25,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
   @Query("SELECT e FROM Event e WHERE e.zone.id = :zoneId AND e.start > :todaysDate")
   List<Event> findAllEventsByDate(@Param("zoneId") Long zoneId, @Param("todaysDate") LocalDateTime todaysDateString);
 
+  @Query("SELECT e FROM Event e WHERE e.car.id = :id AND e.active = True")
+  List<Event> findAllActiveEventsByCarId(@Param("id") Long id);
+
 }
